@@ -1,7 +1,7 @@
 Package: Entrez
 Title: Entrez
 Version: 0.1
-Authors@R: "First Last <first.last@example.com> [aut, cre]"
+Authors@R: "Michael Bernauer <mlbernauer@gmail.com> [aut, cre]"
 Description: Retrieve and parse files from NCBI databases via E-utilitities API
 Depends: R (>= 3.1.2)
 License: What license is it under?

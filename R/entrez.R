@@ -1,13 +1,17 @@
 library(RCurl)
 library(XML)
 
-#' Function for parsing Medline files
-#' This function is for parsing MEDLINE structured text i.e files or results from entrez_fetcher()
+#' MEDLINE Parser
 #' @param file_name Path to MEDLINE file or output from entrez_fetcher()
 #' @keywords pubed, medline, NCBI
 #' @export
 #' @examples
-#' medline_parser(<path_to_medline_file>)
+#' # If using MEDLINE file on local machine
+#' results <- medline_parser("/home/user/Downloads/pubmed_results.txt")
+#'
+#' # If using output from efetch()
+#' search_results <- efetch("\"university of new mexico\"[AD] AND \"pharmacy\"[AD]")
+#' results <- medline_parser(search_results)
 medline_parser = function(file_name){
   if(file.exists(file_name)){
     lines <- readLines(file_name)
@@ -52,8 +56,8 @@ return(medline_records)
 #' @param type Specifies the format results should be returned in i.e. medline
 #' @export
 #' @examples
-#' entrez_fetcher("pharmacy[AD]", "pubmed", "medline")
-entrez_fetcher = function(query_string, db, type){
+#' efetch("pharmacy[AD]", "pubmed", "medline")
+efetch = function(query_string, db, type){
   base <- "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
   query <- gsub(" ", "+", query_string)
   query <- paste("esearch.fcgi?db=", db, "&term=", query, "&usehistory=y", sep="")
@@ -64,7 +68,6 @@ entrez_fetcher = function(query_string, db, type){
   web <- xml_data["WebEnv"][[1]]
   key <- xml_data["QueryKey"][[1]]
 
-  # Assemble Efetch URL
   fetch <- paste(base, "efetch.fcgi?db=", db, "&query_key=", key,
                 "&WebEnv=", web, "&rettype=", type, "&retmode=text", sep="")
   data <- getURL(fetch)
