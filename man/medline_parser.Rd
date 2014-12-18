@@ -2,8 +2,7 @@
 % Please edit documentation in R/entrez.R
 \name{medline_parser}
 \alias{medline_parser}
-\title{Function for parsing Medline files
-This function is for parsing MEDLINE structured text i.e files or results from entrez_fetcher()}
+\title{MEDLINE Parser}
 \usage{
 medline_parser(file_name)
 }
@@ -11,11 +10,15 @@ medline_parser(file_name)
 \item{file_name}{Path to MEDLINE file or output from entrez_fetcher()}
 }
 \description{
-Function for parsing Medline files
-This function is for parsing MEDLINE structured text i.e files or results from entrez_fetcher()
+MEDLINE Parser
 }
 \examples{
-medline_parser(<path_to_medline_file>)
+# If using MEDLINE file on local machine
+results <- medline_parser("/home/user/Downloads/pubmed_results.txt")
+
+# If using output from efetch()
+search_results <- efetch("\\"university of new mexico\\"[AD] AND \\"pharmacy\\"[AD]")
+results <- medline_parser(search_results)
 }
 \keyword{NCBI}
 \keyword{medline,}
