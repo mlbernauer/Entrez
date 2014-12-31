@@ -16,4 +16,7 @@ medlineFields(recs, key, sep = FALSE)
 Function for extracting certain fields from medline records.
 This function take medline records and a field argument and returns a list of fields.
 }
+\examples{
+medlineFields(recs, key, sep=";")
+}
 

@@ -2,11 +2,21 @@
 % Please edit documentation in R/entrez.R
 \name{medlineDocumentTermMatrix}
 \alias{medlineDocumentTermMatrix}
-\title{Returns a document-term matrix using field specified by user}
+\title{Returns a document-term matrix using field specified by user
+This function returns a Document Term Matrix}
 \usage{
 medlineDocumentTermMatrix(recs, key, label = "AU")
 }
+\arguments{
+\item{recs}{MEDLINE records returned from medlineParser.}
+
+\item{key}{MEDLINE entry you wish to create the DTM with.}
+}
 \description{
 Returns a document-term matrix using field specified by user
+This function returns a Document Term Matrix
+}
+\examples{
+medlineDocumentTermMatrix(recs, key, label="AD")
 }
 

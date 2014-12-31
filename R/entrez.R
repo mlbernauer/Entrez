@@ -79,6 +79,8 @@ efetch = function(query_string, db="pubmed", type="medline"){
 #' This function take medline records and a field argument and returns a list of fields.
 #' @param key The field to be extracted from medline records.
 #' @param recs The list of medline records returned from medlineParser.
+#' @export
+#' @examples medlineFields(recs, key, sep=";")
 medlineFields <- function(recs, key, sep=FALSE){
   fields <- unlist(lapply(recs, function(x) x[key][[1]]))
   if(sep != FALSE){
@@ -88,6 +90,11 @@ medlineFields <- function(recs, key, sep=FALSE){
 }
 
 #' Returns a document-term matrix using field specified by user
+#' This function returns a Document Term Matrix
+#' @param recs MEDLINE records returned from medlineParser.
+#' @param key MEDLINE entry you wish to create the DTM with.
+#' @export
+#' @examples medlineDocumentTermMatrix(recs, key, label="AD")
 medlineDocumentTermMatrix <- function(recs, key, label="AU"){
   text <- extractFields(recs, key)
   corp <- VCorpus(VectorSource(text))
