@@ -5,7 +5,7 @@
 \title{Function for retrieving PubMed search results
 This function is for retrieving structured text from NCBI databases}
 \usage{
-efetch(query_string, db, type)
+efetch(query_string, db = "pubmed", type = "medline")
 }
 \arguments{
 \item{query_string}{The query to used to retrieve results.}

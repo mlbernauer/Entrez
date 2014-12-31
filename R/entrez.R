@@ -57,7 +57,7 @@ return(medlineRecords)
 #' @export
 #' @examples
 #' efetch("pharmacy[AD]", "pubmed", "medline")
-efetch = function(query_string, db, type){
+efetch = function(query_string, db="pubmed", type="medline"){
   base <- "http://eutils.ncbi.nlm.nih.gov/entrez/eutils/"
   query <- gsub(" ", "+", query_string)
   query <- paste("esearch.fcgi?db=", db, "&term=", query, "&usehistory=y", sep="")
@@ -73,3 +73,51 @@ efetch = function(query_string, db, type){
   data <- getURL(fetch)
   return(data)
 }
+
+#' Function for extracting certain fields from medline records.
+#' This function take medline records and a field argument and returns a list of fields.
+#' @param key The field to be extracted from medline records.
+#' @param recs The list of medline records returned from medlineParser.
+extractFields <- function(recs, key, sep=FALSE){
+  fields <- unlist(lapply(recs, function(x) x[key][[1]]))
+  if(sep != FALSE){
+    fields <- lapply(fields, function(x) strsplit(x, sep)[[1]])
+  }
+  return(fields)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
