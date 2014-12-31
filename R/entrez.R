@@ -1,5 +1,6 @@
 library(RCurl)
 library(XML)
+library(tm)
 
 #' MEDLINE Parser
 #' @param file_name Path to MEDLINE file or output from entrez_fetcher()
@@ -78,7 +79,7 @@ efetch = function(query_string, db="pubmed", type="medline"){
 #' This function take medline records and a field argument and returns a list of fields.
 #' @param key The field to be extracted from medline records.
 #' @param recs The list of medline records returned from medlineParser.
-extractFields <- function(recs, key, sep=FALSE){
+medlineFields <- function(recs, key, sep=FALSE){
   fields <- unlist(lapply(recs, function(x) x[key][[1]]))
   if(sep != FALSE){
     fields <- lapply(fields, function(x) strsplit(x, sep)[[1]])
@@ -86,38 +87,15 @@ extractFields <- function(recs, key, sep=FALSE){
   return(fields)
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#' Returns a document-term matrix using field specified by user
+medlineDocumentTermMatrix <- function(recs, key, label="AU"){
+  text <- extractFields(recs, key)
+  corp <- VCorpus(VectorSource(text))
+  corp <- tm_map(corp, stripWhitespace)
+  corp <- tm_map(corp, content_transformer(tolower))
+  corp <- tm_map(corp, removeWords, stopwords("english"))
+  dtm <- as.matrix(DocumentTermMatrix(corp))
+  return(dtm)
+}
 
 
