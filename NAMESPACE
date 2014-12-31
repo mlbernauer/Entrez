@@ -2,3 +2,5 @@
 
 export(efetch)
 export(medlineParser)
+export(medlineFields)
+export(medlineDocumentTermMatrix)
