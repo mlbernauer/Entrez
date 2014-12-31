@@ -7,19 +7,19 @@ library(XML)
 #' @export
 #' @examples
 #' # If using MEDLINE file on local machine
-#' results <- medline_parser("/home/user/Downloads/pubmed_results.txt")
+#' results <- medlineParser("/home/user/Downloads/pubmed_results.txt")
 #'
 #' # If using output from efetch()
 #' search_results <- efetch("\"university of new mexico\"[AD] AND \"pharmacy\"[AD]")
-#' results <- medline_parser(search_results)
-medline_parser = function(file_name){
+#' results <- medlineParser(search_results)
+medlineParser = function(file_name){
   if(file.exists(file_name)){
     lines <- readLines(file_name)
   }
   else {
     lines <- strsplit(file_name, "\n")[[1]]
   }
-  medline_records <- list()
+  medlineRecords <- list()
   key <- 0
   record <- 0
   for(line in lines){
@@ -30,23 +30,23 @@ medline_parser = function(file_name){
     }
     else if(header == "PMID"){
       record = record + 1
-      medline_records[[record]] <- list()
-      medline_records[[record]][header] <- value
+      medlineRecords[[record]] <- list()
+      medlineRecords[[record]][header] <- value
     }
     else if(header == "" & value != ""){
-      medline_records[[record]][key] <- paste(medline_records[[record]][key], value)
+      medlineRecords[[record]][key] <- paste(medlineRecords[[record]][key], value)
     }
     else{
       key <- header
-      if(is.null(medline_records[[record]][key][[1]])){
-        medline_records[[record]][key] <- value
+      if(is.null(medlineRecords[[record]][key][[1]])){
+        medlineRecords[[record]][key] <- value
       }
       else { 
-        medline_records[[record]][key] <- paste(medline_records[[record]][key], value, sep=";")
+        medlineRecords[[record]][key] <- paste(medlineRecords[[record]][key], value, sep=";")
       }
     }
   }
-return(medline_records)
+return(medlineRecords)
 }
 
 #' Function for retrieving PubMed search results
